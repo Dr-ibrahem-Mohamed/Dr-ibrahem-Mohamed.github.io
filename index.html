@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en" class="is-loading">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ibrahem Mohammed El-Badry — Quality Control Engineer, Cement Industry</title>
+  <meta name="description" content="Quality Engineer with 2+ years in cement manufacturing — QA/QC, raw mix design and Bruker XRF / XRD analysis at Titan Cement Group (Alexandria Portland Cement Co.), Alexandria, Egypt.">
+  <meta name="theme-color" content="#c5c0b8">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ibrahem Mohammed El-Badry — Quality Control Engineer">
+  <meta property="og:description" content="QA/QC · Raw mix design · XRF / XRD analysis — cement industry, Alexandria, Egypt.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%23141414'/%3E%3Ccircle cx='20' cy='20' r='16' fill='none' stroke='%23f0ede7' stroke-width='1.6' stroke-dasharray='2.6 2.4'/%3E%3Ccircle cx='12.6' cy='24.6' r='3.4' fill='%23e2541f'/%3E%3Ccircle cx='18.8' cy='28.2' r='3.2' fill='%23f0ede7'/%3E%3Ccircle cx='24.8' cy='27.4' r='2.6' fill='%23e2541f'/%3E%3Ccircle cx='10.8' cy='18.4' r='2.3' fill='%23f0ede7'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Titan / Alexandria Portland Cement bag, reused by the cursor and the no-3D fallback -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <clipPath id="bagClip"><path d="M4 4Q20 1 36 4Q38.5 26 36 48Q20 51 4 48Q1.5 26 4 4Z"/></clipPath>
+      <linearGradient id="bagShade" x1="0" x2="1">
+        <stop offset="0" stop-color="#000" stop-opacity=".2"/>
+        <stop offset=".35" stop-color="#fff" stop-opacity="0"/>
+        <stop offset="1" stop-color="#000" stop-opacity=".25"/>
+      </linearGradient>
+      <symbol id="bag" viewBox="0 0 40 52">
+        <g clip-path="url(#bagClip)">
+          <rect width="40" height="52" fill="#f3f1ec"/>
+          <rect width="40" height="15" fill="#13306b"/>
+          <text x="20.4" y="11.6" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="9.6" letter-spacing="1.2" fill="#fff">TITAN</text>
+          <rect y="15" width="40" height="4.6" fill="#c8312b"/>
+          <text x="20" y="18.4" text-anchor="middle" font-family="Inter Tight, Arial, sans-serif" font-weight="700" font-size="2.6" letter-spacing=".3" fill="#fff">ALEXANDRIA PORTLAND</text>
+          <text x="20" y="28" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="6.4" fill="#13306b">PORTLAND</text>
+          <text x="20" y="35" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="6.4" fill="#13306b">CEMENT</text>
+          <rect x="10" y="37.4" width="20" height="3.6" rx="1.8" fill="#c8312b"/>
+          <text x="20" y="40.2" text-anchor="middle" font-family="Inter Tight, Arial, sans-serif" font-weight="700" font-size="2.5" fill="#fff">CEM I 42.5 N</text>
+          <circle cx="31.5" cy="44.5" r="3.6" fill="#13306b"/>
+          <text x="31.5" y="45.6" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="3" fill="#fff">50</text>
+          <rect y="49" width="40" height="3" fill="#13306b"/>
+          <rect width="40" height="52" fill="url(#bagShade)"/>
+        </g>
+        <path d="M4 4Q20 1 36 4Q38.5 26 36 48Q20 51 4 48Q1.5 26 4 4Z" fill="none" stroke="#141414" stroke-opacity=".4" stroke-width=".8"/>
+        <path d="M17 1.6v-1.4h6v1.4" fill="none" stroke="#141414" stroke-opacity=".5" stroke-width=".7"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- loader -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__head mono"><span>El-Badry · QC Lab</span><span>System check</span></div>
+    <ol class="loader__log mono" id="loaderLog">
+      <li><span>Calibrating Bruker XRF &amp; XRD</span><i>OK</i></li>
+      <li><span>Loading raw-mix chemistry</span><i>OK</i></li>
+      <li><span>Spinning up the ball mill</span><i>OK</i></li>
+      <li><span>Packing 50 kg bags</span><i>OK</i></li>
+    </ol>
+    <div class="loader__count"><span id="loaderNum">0</span><sup>%</sup></div>
+    <div class="loader__bar"><span id="loaderBar"></span></div>
+  </div>
+
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <div class="veil" id="veil" aria-hidden="true"></div>
+  <div class="pile-labels" id="pileLabels" aria-hidden="true"></div>
+
+  <!-- top bar -->
+  <header class="topbar">
+    <a href="#top" class="brand" data-cursor="Top" aria-label="Ibrahem El-Badry — back to top">
+      <!-- ball-mill cross-section: the shell turns, the ball charge tumbles at the bottom -->
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19.5" fill="#141414"/>
+        <circle class="brand__shell" cx="20" cy="20" r="16" fill="none" stroke="#f0ede7" stroke-width="1.4" stroke-dasharray="2.6 2.4"/>
+        <circle cx="20" cy="20" r="13.4" fill="#262523"/>
+        <circle cx="12.6" cy="24.6" r="3.2" fill="#e2541f"/>
+        <circle cx="18.6" cy="28.4" r="3" fill="#f0ede7"/>
+        <circle cx="24.6" cy="27.6" r="2.4" fill="#e2541f"/>
+        <circle cx="10.6" cy="18.6" r="2.1" fill="#f0ede7"/>
+        <circle cx="17" cy="22.8" r="2" fill="#a8a196"/>
+        <circle cx="14.2" cy="13.6" r="1.5" fill="#e2541f"/>
+      </svg>
+      <span class="brand__txt"><b>Ibrahem El-Badry</b><span class="mono">Quality Control · Cement</span></span>
+    </a>
+    <nav class="nav mono" aria-label="Sections">
+      <a href="#about">Profile</a>
+      <a href="#rawmix">Raw mix</a>
+      <a href="#experience">Experience</a>
+      <a href="#companies">Companies</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="pill" href="assets/ibrahem-mohammed-cv.pdf" download="Ibrahem-Mohammed-El-Badry-CV.pdf" data-cursor="Download">
+      Download CV
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 2v9m0 0L4 7m4 4 4-4M3 14h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </header>
+
+  <!-- HUD -->
+  <div class="hud mono" aria-hidden="true">
+    <span class="hud__corner hud__corner--tl"></span>
+    <span class="hud__corner hud__corner--tr"></span>
+    <span class="hud__corner hud__corner--bl"></span>
+    <span class="hud__corner hud__corner--br"></span>
+    <div class="hud__stage"><span class="hud__idx" id="hudIdx">01/07</span><span id="hudStage">MILLING</span></div>
+    <div class="hud__meta"><span id="hudRpm">Mill 15.6 rpm</span><span>31.20°N 29.92°E</span><span id="hudClock">Alexandria</span></div>
+    <div class="rail" id="rail"><span class="rail__fill" id="railFill"></span></div>
+  </div>
+
+  <main id="top">
+
+    <!-- 01 · HERO -->
+    <section class="hero" id="hero" data-stage="Milling">
+      <div class="hero__giant" aria-hidden="true">QUALITY</div>
+      <div class="hero__fallback" aria-hidden="true"><svg viewBox="0 0 40 52"><use href="#bag"/></svg></div>
+      <div class="hero__content">
+        <div>
+          <p class="eyebrow" data-intro style="--d:0">Quality Control Engineer — Cement Industry</p>
+          <h1 class="hero__name" data-split>Ibrahem Mohammed <span class="nowrap">El-Badry</span></h1>
+          <p class="hero__lead" data-intro style="--d:.55">Keeping cement on spec — from quarry chemistry and raw meal to clinker, the cement mill and the finished 50&nbsp;kg bag. QA/QC, Bruker XRF &amp; XRD analysis and raw mix design at Titan Cement Group (APCC), Alexandria.</p>
+        </div>
+        <div class="hero__side" data-intro style="--d:.75">
+          <dl class="spec">
+            <div><dt>Now</dt><dd>Quality Engineer · Titan / APCC</dd></div>
+            <div><dt>Focus</dt><dd>QA/QC · Raw mix · XRF / XRD</dd></div>
+            <div><dt>Base</dt><dd>Alexandria, Egypt</dd></div>
+            <div><dt>Direct</dt><dd><a href="tel:+201210924295" data-cursor="Call">+20 121 092 4295</a></dd></div>
+          </dl>
+          <div class="scroll-cue mono"><i></i>Scroll to start the line</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · PROFILE -->
+    <section class="section about" id="about" data-stage="Packing">
+      <div class="panel about__intro" data-reveal>
+        <p class="eyebrow">Packing — Profile</p>
+        <h2 class="h-display h-display--md" data-split>Every bag is a promise. <span class="accent">I check it's kept.</span></h2>
+        <p class="lead">Quality Engineer with over two years in cement manufacturing, specialised in Quality Assurance and Quality Control. Hands-on with raw meal, clinker, cement and quarry quality control, laboratory supervision, Bruker XRF and XRD analysis, and raw mix design.</p>
+        <p>I'm driven by process optimisation, continuous improvement and data-driven decisions — while holding the highest standards of safety and operational excellence.</p>
+        <div class="stats">
+          <div class="stat"><b data-count="2" data-suffix="+">2+</b><span>Years in cement QA/QC</span></div>
+          <div class="stat"><b data-count="3">3</b><span>Labs supervised — chemical, physical, XRF</span></div>
+          <div class="stat"><b data-count="2">2</b><span>Cement plants — Titan APCC &amp; Amreyah</span></div>
+          <div class="stat"><b data-count="4">4</b><span>Industrial internships</span></div>
+        </div>
+      </div>
+
+      <div class="panel about__facts" data-reveal>
+        <p class="eyebrow">Spec sheet</p>
+        <dl class="facts">
+          <div><dt>Education</dt><dd>B.Sc. Chemistry / Physics — Alexandria University</dd></div>
+          <div><dt>Location</dt><dd>Al-Agamy, Alexandria — Egypt</dd></div>
+          <div><dt>Military status</dt><dd>Exempted</dd></div>
+          <div><dt>Languages</dt><dd>Arabic (native) · English B2 · Turkish A2</dd></div>
+          <div><dt>Trained in</dt><dd>Lean Six Sigma Green Belt · ISO 9001:2015 · OSHA</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- 03 · RAW MIX (sticky scroll story) -->
+    <section class="rawmix" id="rawmix" data-stage="Raw mix" data-step="0">
+      <div class="rawmix__sticky">
+        <div class="rawmix__intro">
+          <p class="eyebrow">Back to the quarry</p>
+          <h2 class="h-display h-display--md" data-split>What's inside a bag of cement?</h2>
+          <div class="rawmix__steps">
+            <p class="rawmix__step" data-s="0">Fifty kilos of grey powder that has to hit its strength, setting time and fineness — every single time. Keeping that promise starts long before the cement mill.</p>
+            <p class="rawmix__step" data-s="1">Open the bag and you'll find <strong>clinker</strong> — the heart of the cement — plus <strong>gypsum</strong> to control setting time and <strong>additives</strong> chosen for each cement type.</p>
+            <p class="rawmix__step" data-s="2">Now rewind the kiln. Clinker is raw meal burnt at about 1450&nbsp;°C — <strong>limestone, clay, sand and iron ore</strong>. These are the materials I sample, analyse and proportion every shift.</p>
+            <div class="rawmix__step moduli" data-s="3">
+              <p class="moduli__title mono">Raw mix design · the numbers I balance</p>
+              <dl>
+                <div><dt>LSF</dt><dd><span class="moduli__f">CaO / (2.8 SiO₂ + 1.18 Al₂O₃ + 0.65 Fe₂O₃)</span><span class="moduli__r">0.92 – 0.98</span></dd></div>
+                <div><dt>SM</dt><dd><span class="moduli__f">SiO₂ / (Al₂O₃ + Fe₂O₃)</span><span class="moduli__r">2.2 – 2.8</span></dd></div>
+                <div><dt>AM</dt><dd><span class="moduli__f">Al₂O₃ / Fe₂O₃</span><span class="moduli__r">1.3 – 1.8</span></dd></div>
+              </dl>
+              <p class="moduli__note mono">Typical industry ranges — every plant sets its own targets, verified by XRF analysis of raw meal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 · EXPERIENCE -->
+    <section class="section experience" id="experience" data-stage="Experience">
+      <header class="section__head">
+        <p class="eyebrow">Experience</p>
+        <h2 class="h-display" data-split>Two plants. <span class="accent">One standard.</span></h2>
+      </header>
+
+      <ol class="line panel" data-reveal aria-label="Quality checkpoints along the cement line">
+        <li><span class="mono">01</span><b>Quarry</b><p>Raw-material chemistry and consistency</p></li>
+        <li><span class="mono">02</span><b>Raw meal</b><p>Kiln-feed targets · LSF, SM, AM</p></li>
+        <li><span class="mono">03</span><b>Kiln &amp; lime</b><p>Clinker and lime quality for a stable kiln</p></li>
+        <li><span class="mono">04</span><b>Cement mill</b><p>Fineness, chemistry, strength</p></li>
+        <li><span class="mono">05</span><b>Dispatch</b><p>Finished cement conforms to spec</p></li>
+      </ol>
+
+      <div class="jobs">
+        <article class="panel job" data-reveal>
+          <header class="job__head">
+            <span class="job__years mono">2025 — Present</span>
+            <span class="job__badge mono">Current</span>
+          </header>
+          <h3 class="job__title">Quality Engineer</h3>
+          <p class="job__co">Titan Cement Group — Alexandria Portland Cement Co. (APCC)</p>
+          <ul class="job__list">
+            <li>Supervise daily operations of the Chemical, Physical and X-Ray (XRF) laboratories, ensuring accurate and timely quality testing.</li>
+            <li>Develop and optimise raw mix designs to hit clinker quality targets while keeping the process stable.</li>
+            <li>Monitor XRF performance, calibration and analytical accuracy for reliable chemical analysis.</li>
+            <li>Run QA and QC activities throughout the cement manufacturing process.</li>
+            <li>Analyse laboratory and process data to spot trends and support continuous improvement.</li>
+            <li>Coordinate with Production, Process and Maintenance to resolve quality issues.</li>
+            <li>Ensure compliance with internal quality standards and applicable cement specifications.</li>
+            <li>Promote laboratory safety and good laboratory practice.</li>
+          </ul>
+          <ul class="tags mono"><li>XRF</li><li>Raw mix design</li><li>QA / QC</li><li>Lab supervision</li><li>Data analysis</li></ul>
+        </article>
+
+        <article class="panel job" data-reveal style="--delay:.12s">
+          <header class="job__head">
+            <span class="job__years mono">2024 — 2025</span>
+          </header>
+          <h3 class="job__title">Quality Engineer / Quality Shift Leader</h3>
+          <p class="job__co">Amreyah Cement — Alexandria</p>
+          <ul class="job__list">
+            <li>Led the Quality Control shift and supervised daily laboratory activities.</li>
+            <li>Monitored raw meal quality against kiln feed targets.</li>
+            <li>Controlled lime production quality and supported stable kiln operation.</li>
+            <li>Monitored quarry raw materials and kept their chemistry consistent.</li>
+            <li>Controlled cement mill quality and verified finished cement against specifications.</li>
+            <li>Performed routine chemical analysis and process monitoring with laboratory instruments.</li>
+            <li>Investigated quality deviations with production teams and implemented corrective actions.</li>
+            <li>Maintained laboratory records in line with quality procedures.</li>
+          </ul>
+          <ul class="tags mono"><li>Shift leadership</li><li>Raw meal</li><li>Lime &amp; kiln</li><li>Quarry QC</li><li>Cement mill</li></ul>
+        </article>
+      </div>
+
+      <div class="panel intern" data-reveal>
+        <p class="eyebrow">Internships</p>
+        <ul class="intern__list">
+          <li><span class="mono">Aug 2024</span><b>Egyptian Petrochemicals Company (EPC)</b><p>PVC and VCM production, water treatment, laboratory operations, production planning and quality assurance.</p></li>
+          <li><span class="mono">Jul 2023</span><b>Alexandria Water Company</b><p>Laboratory analysis, water treatment, quality assurance and quality control.</p></li>
+          <li><span class="mono">Aug 2022</span><b>Alexandria Portland Cement</b><p>Cement manufacturing, quality control, operations management and production processes.</p></li>
+          <li><span class="mono">Aug 2021</span><b>Extracted Oils Company</b><p>Laboratory analysis, edible oil and soap production, and safety practices.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 · COMPANIES -->
+    <section class="section companies" id="companies" data-stage="Companies">
+      <header class="section__head">
+        <p class="eyebrow">Where I've worked &amp; grown</p>
+        <h2 class="h-display" data-split>The names behind <span class="accent">the journey.</span></h2>
+      </header>
+
+      <div class="cos">
+        <article class="panel co" data-reveal data-tilt>
+          <div class="co__top"><span class="co__mark co__mark--titan">TITAN</span><span class="co__since mono">Est. 1902 · Greece</span></div>
+          <h3>Titan Cement Group</h3>
+          <p>Founded in Greece in 1902 and listed on the Athens Stock Exchange since 1912, TITAN is an international, vertically integrated producer of cement and building materials, operating in more than 15 countries across the USA, Europe and the Eastern Mediterranean. In 2025 the parent company became Titan S.A., bringing the group under one identity.</p>
+          <p>In Egypt, TITAN runs the Beni Suef plant and <strong>Alexandria Portland Cement Co. (APCC)</strong> — founded in 1948, part of the group since 2002, and recently expanded with dedicated export silos in Alexandria.</p>
+          <ul class="co__facts"><li><b>1902</b><span>Founded</span></li><li><b>15+</b><span>Countries</span></li><li><b>2</b><span>Plants in Egypt</span></li></ul>
+          <p class="co__role mono"><span>My role</span>Quality Engineer · APCC · 2025 — now</p>
+        </article>
+
+        <article class="panel co" data-reveal data-tilt style="--delay:.08s">
+          <div class="co__top"><span class="co__mark co__mark--amreyah">AMREYAH</span><span class="co__since mono">West Alexandria</span></div>
+          <h3>Amreyah Cement</h3>
+          <p>Amreyah Cement operates a three-line cement plant on the North Coast road west of Alexandria, near Borg El Arab — supplying Alexandria and Egypt's north coast. The company was long part of the InterCement (Cimpor) group, which agreed to sell its Egyptian operations in 2023.</p>
+          <p>It's where I led a Quality Control shift and learned to keep a kiln line on target from quarry to cement mill.</p>
+          <ul class="co__facts"><li><b>3</b><span>Production lines</span></li><li><b>24/7</b><span>Shift QC</span></li><li><b>5</b><span>Process stages covered</span></li></ul>
+          <p class="co__role mono"><span>My role</span>Quality Engineer / QC Shift Leader · 2024 — 2025</p>
+        </article>
+
+        <article class="panel co" data-reveal data-tilt>
+          <div class="co__top"><span class="co__mark co__mark--enactus">ENACTUS</span><span class="co__since mono">Global non-profit</span></div>
+          <h3>Enactus</h3>
+          <p>A global non-profit that brings together university students, academics and business leaders to turn entrepreneurial action into community impact — the name stands for <em>EN</em>trepreneurial <em>ACT</em>ion by <em>US</em>. Its network spans around 70,000 students on campuses in more than 30 countries, with national competitions leading up to the Enactus World Cup.</p>
+          <ul class="co__facts"><li><b>70k+</b><span>Students</span></li><li><b>30+</b><span>Countries</span></li><li><b>1</b><span>World Cup a year</span></li></ul>
+          <p class="co__role mono"><span>My role</span>Team Leader · Enactus Alexandria University · 2023 — 2024</p>
+        </article>
+
+        <article class="panel co" data-reveal data-tilt style="--delay:.08s">
+          <div class="co__top"><span class="co__mark co__mark--acs">ACS</span><span class="co__since mono">Est. 1876 · New York</span></div>
+          <h3>American Chemical Society</h3>
+          <p>Founded on 6 April 1876 in New York and chartered by the U.S. Congress, the American Chemical Society is one of the world's largest scientific societies — publishing leading chemistry journals and supporting a global community of chemists in more than 140 countries.</p>
+          <p>As a volunteer I learned how to research and write scientific papers, sharpened my presentation skills, and presented in the Chemistry Day science show.</p>
+          <ul class="co__facts"><li><b>1876</b><span>Founded</span></li><li><b>150k+</b><span>Members</span></li><li><b>140+</b><span>Countries</span></li></ul>
+          <p class="co__role mono"><span>My role</span>Volunteer · 2022 — 2024</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 06 · EDUCATION & SKILLS -->
+    <section class="section education" id="education" data-stage="Lab &amp; skills">
+      <header class="section__head">
+        <p class="eyebrow">Education &amp; skills</p>
+        <h2 class="h-display" data-split>Lab-tested <span class="accent">foundations.</span></h2>
+      </header>
+
+      <div class="edu-grid">
+        <article class="panel edu" data-reveal>
+          <p class="eyebrow">Education</p>
+          <h3>B.Sc. Chemistry / Physics</h3>
+          <p class="edu__school">Alexandria University — Faculty of Science</p>
+          <dl class="facts">
+            <div><dt>Grade</dt><dd>Very Good · CGPA 3.00</dd></div>
+            <div><dt>Graduation project</dt><dd>Green Chemistry — Excellent (A-)</dd></div>
+          </dl>
+        </article>
+
+        <article class="panel" data-reveal style="--delay:.08s">
+          <p class="eyebrow">Training &amp; courses</p>
+          <ul class="checklist">
+            <li>Lean Six Sigma Green Belt</li>
+            <li>ISO 9001:2015 — Quality Management Systems</li>
+            <li>OSHA — Occupational Safety &amp; Health</li>
+            <li>Fire Fighting &amp; Emergency Response</li>
+            <li>First Aid</li>
+            <li>Petroleum Diploma — process equipment, HAZOP, process control, production operations</li>
+          </ul>
+        </article>
+
+        <article class="panel" data-reveal>
+          <p class="eyebrow">Instruments</p>
+          <ul class="instruments">
+            <li><b>XRF</b><span class="instruments__brand mono">Bruker · X-ray fluorescence</span><span>Elemental chemistry of raw materials, raw meal, clinker and cement — plus calibration and accuracy checks.</span></li>
+            <li><b>XRD</b><span class="instruments__brand mono">Bruker · X-ray diffraction</span><span>Mineral phases of clinker and cement — C₃S, C₂S, C₃A, C₄AF and free lime.</span></li>
+          </ul>
+        </article>
+
+        <article class="panel" data-reveal style="--delay:.08s">
+          <p class="eyebrow">Languages</p>
+          <ul class="langs">
+            <li><span>Arabic</span><em class="mono">Native</em><i style="--v:1"></i></li>
+            <li><span>English</span><em class="mono">B2</em><i style="--v:.66"></i></li>
+            <li><span>Turkish</span><em class="mono">A2</em><i style="--v:.33"></i></li>
+          </ul>
+        </article>
+
+        <article class="panel span-2" data-reveal>
+          <p class="eyebrow">Technical toolkit</p>
+          <ul class="chips">
+            <li>Bruker XRF analysis &amp; calibration</li><li>Bruker XRD phase analysis</li><li>Raw mix design</li><li>Raw meal QC</li>
+            <li>Clinker QC</li><li>Cement QC</li><li>Quarry QC</li><li>Chemical &amp; physical testing</li>
+            <li>Lab supervision</li><li>Data &amp; trend analysis</li><li>Good laboratory practice</li>
+          </ul>
+          <p class="eyebrow eyebrow--gap">Core skills</p>
+          <ul class="chips chips--soft">
+            <li>Leadership</li><li>Team management</li><li>Analytical thinking</li><li>Problem solving</li>
+            <li>Decision making</li><li>Communication</li><li>Continuous improvement</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 07 · CONTACT -->
+    <section class="contact" id="contact" data-stage="Final inspection">
+      <div class="contact__inner">
+        <p class="eyebrow">Final inspection — passed</p>
+        <h2 class="h-display contact__title" data-split>Let's talk <span class="accent">quality.</span></h2>
+        <p class="contact__lead">Hiring for quality control, quality assurance or laboratory roles in cement and building materials? I'd be glad to talk.</p>
+
+        <a class="contact__phone" href="tel:+201210924295" data-cursor="Call">+20 121 092 4295</a>
+
+        <div class="contact__actions">
+          <a class="btn btn--accent" href="assets/ibrahem-mohammed-cv.pdf" download="Ibrahem-Mohammed-El-Badry-CV.pdf" data-cursor="Download" data-magnetic>
+            Download CV
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M8 2v9m0 0L4 7m4 4 4-4M3 14h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn" href="tel:+201210924295" data-cursor="Call" data-magnetic>Call me</a>
+          <a class="btn" href="https://wa.me/201210924295" target="_blank" rel="noopener" data-cursor="Chat" data-magnetic>WhatsApp</a>
+          <button class="btn btn--ghost" type="button" data-copy="+201210924295" data-cursor="Copy"><span>Copy number</span></button>
+        </div>
+
+        <div class="socials">
+          <a class="social" href="https://www.linkedin.com/in/abrahem-mohamed-5b0aa8211" target="_blank" rel="noopener" aria-label="LinkedIn profile" data-cursor="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM.24 8.25h4.5V23H.24V8.25zM8.1 8.25h4.31v2.02h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-7.2c0-1.72-.03-3.93-2.4-3.93-2.4 0-2.77 1.87-2.77 3.8V23H8.1V8.25z"/></svg>
+            <span class="mono">LinkedIn</span>
+          </a>
+          <a class="social" href="mailto:i.mohamedelbadry22@gmail.com" aria-label="Email" data-cursor="Email">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 5.5h18v13H3z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="m3.5 6 8.5 7 8.5-7"/></svg>
+            <span class="mono">Email</span>
+          </a>
+          <a class="social" href="tel:+201210924295" aria-label="Phone" data-cursor="Call">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M6.6 3.5h-3a1 1 0 0 0-1 1.1C3.3 13.1 10.9 20.7 19.4 21.4a1 1 0 0 0 1.1-1v-3l-4.2-1.7-2 2a12.5 12.5 0 0 1-6-6l2-2z"/></svg>
+            <span class="mono">Phone</span>
+          </a>
+          <a class="social" href="https://wa.me/201210924295" target="_blank" rel="noopener" aria-label="WhatsApp" data-cursor="Chat">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4.5 19.5 5.6 16A8.5 8.5 0 1 1 8.4 18.6z"/><path fill="currentColor" d="M9.2 8.4c.2-.4.6-.4.8-.1l.8 1.6c.1.3 0 .5-.2.7l-.4.4c.5 1 1.3 1.8 2.3 2.3l.4-.4c.2-.2.5-.3.7-.2l1.6.8c.3.2.3.6-.1.8-.6.5-1.4.8-2.2.5-1.9-.7-3.4-2.2-4.1-4.1-.2-.9 0-1.7.4-2.3z"/></svg>
+            <span class="mono">WhatsApp</span>
+          </a>
+        </div>
+        <dl class="contact__mail mono">
+          <div><dt>Personal</dt><dd><a href="mailto:i.mohamedelbadry22@gmail.com" data-cursor="Email">i.mohamedelbadry22@gmail.com</a></dd></div>
+          <div><dt>Work</dt><dd><a href="mailto:Ibrahim.elbadry@titan.com.eg" data-cursor="Email">Ibrahim.elbadry@titan.com.eg</a></dd></div>
+        </dl>
+      </div>
+
+      <footer class="footer mono">
+        <span>© 2026 Ibrahem Mohammed El-Badry</span>
+        <span>Alexandria, Egypt</span>
+        <a href="#top" data-cursor="Top">Back to the mill ↑</a>
+      </footer>
+    </section>
+  </main>
+
+  <!-- cement-bag cursor -->
+  <div class="cursor" aria-hidden="true">
+    <span class="cursor__dot"></span>
+    <span class="cursor__bag"><svg viewBox="0 0 40 52"><use href="#bag"/></svg><span class="cursor__label mono"></span></span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/scene.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
